@@ -2,27 +2,19 @@ import dotenv from "dotenv";
 dotenv.config({ path: "./config.env" });
 import express from "express"
 import { ApolloServer, gql } from "apollo-server-express";
+import readContent from "./utils/readContent";
+import resolvers from "./resolvers";
 
 const PORT = process.env.PORT || 8080;
+
+
 
 ( async () => {
     const app = express()
 
     const server = new ApolloServer({
-        resolvers: {
-            Query: {
-                hello: (_, { name }) => {
-                    if (name){
-                        return "Hello " + name
-                    }
-                } 
-            }
-        },
-        typeDefs: gql`
-            type Query{
-                hello(name: String): String!
-            }
-        `
+        resolvers,
+        typeDefs: readContent(process.env.NODE_ENV === "development" ? "./src/typeDefs.gql" : "./typeDefs.gql")
     })
 
     await server.start()

@@ -5,9 +5,9 @@
   "author": "Ammar Ahmed",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "build": "babel src -d . --copy-files",
-    "dev": "nodemon --exec babel-node ./src/"
+    "dev": "NODE_ENV=development nodemon --exec babel-node ./src/"
   },
   "dependencies": {
     "apollo-server-express": "^3.9.0",
