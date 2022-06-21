@@ -1,0 +1,1 @@
+export const getUnixTimestamp = (date) => Math.floor(date.getTime() / 1000)
