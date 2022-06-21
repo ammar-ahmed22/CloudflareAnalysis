@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 
     const server = new ApolloServer({
         resolvers,
-        typeDefs: readContent(process.env.NODE_ENV === "development" ? "./src/typeDefs.gql" : "./typeDefs.gql")
+        typeDefs: readContent(process.env.NODE_ENV === "development" ? "./src/typeDefs.gql" : "./build/typeDefs.gql")
     })
 
     await server.start()

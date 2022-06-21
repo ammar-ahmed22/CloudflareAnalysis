@@ -1,13 +1,14 @@
 {
-  "name": "csv-parser",
+  "name": "csv-reader",
   "version": "0.0.1",
-  "main": "index.js",
+  "description": "Reads csv data to JSON",
+  "main": "./build/index.js",
   "author": "Ammar Ahmed",
   "license": "MIT",
   "scripts": {
-    "start": "node main.js",
-    "build": "babel src -d . --copy-files",
-    "dev": "nodemon --exec babel-node ./src/main.js"
+    "start": "node ./build/index.js",
+    "build": "babel src -d ./build --copy-files",
+    "dev": "nodemon --exec babel-node ./src/index.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",

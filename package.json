@@ -1,18 +1,17 @@
 {
   "name": "cloudflareanalysis",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./build/index.js",
   "author": "Ammar Ahmed",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production node index.js",
-    "build": "babel src -d . --copy-files",
+    "start": "NODE_ENV=production node ./build/index.js",
+    "build": "babel src -d ./build --copy-files",
     "dev": "NODE_ENV=development nodemon --exec babel-node ./src/"
   },
   "dependencies": {
     "apollo-server-express": "^3.9.0",
     "axios": "^0.27.2",
-    "csv-parser": "./csv-parser",
     "danfojs-node": "^1.1.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",

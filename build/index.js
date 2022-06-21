@@ -32,7 +32,7 @@ var PORT = process.env.PORT || 8080;
           app = (0, _express["default"])();
           server = new _apolloServerExpress.ApolloServer({
             resolvers: _resolvers["default"],
-            typeDefs: (0, _readContent["default"])(process.env.NODE_ENV === "development" ? "./src/typeDefs.gql" : "./typeDefs.gql")
+            typeDefs: (0, _readContent["default"])(process.env.NODE_ENV === "development" ? "./src/typeDefs.gql" : "./build/typeDefs.gql")
           });
           _context.next = 4;
           return server.start();
