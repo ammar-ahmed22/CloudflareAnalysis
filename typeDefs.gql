@@ -1,0 +1,17 @@
+type Week{
+    date: String!
+    unixDate: Int!
+    data: String
+    result: String
+    tagCount: String
+}
+
+type Query{
+    hello(name: String): String!
+    week(dates: [String!]): [Week]!
+}
+
+type Mutation {
+    createWeek(date: String!, data: String): Week!
+    addResult(date: String!, result: String!, tagCount: String): Week!
+}

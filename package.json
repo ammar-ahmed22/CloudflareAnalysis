@@ -12,6 +12,7 @@
   "dependencies": {
     "apollo-server-express": "^3.9.0",
     "axios": "^0.27.2",
+    "csv-parser": "./csv-parser",
     "danfojs-node": "^1.1.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
