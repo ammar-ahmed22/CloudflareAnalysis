@@ -1,22 +1,15 @@
 {
-  "name": "cloudflareanalysis",
-  "version": "1.0.0",
+  "name": "csv-reader",
+  "version": "0.0.1",
+  "description": "Reads csv data to JSON",
   "main": "./build/index.js",
   "author": "Ammar Ahmed",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production node ./build/index.js",
+    "start": "node ./build/index.js",
     "build": "babel src -d ./build --copy-files",
-    "dev": "NODE_ENV=development nodemon --exec babel-node ./src/"
-  },
-  "dependencies": {
-    "apollo-server-express": "^3.9.0",
-    "axios": "^0.27.2",
-    "danfojs-node": "^1.1.1",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "graphql": "^16.5.0",
-    "mongoose": "^6.4.0"
+    "dev": "nodemon --exec babel-node ./src/index.js",
+    "test": "nodemon --exec babel-node ./src/index.test.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -26,5 +19,8 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/runtime": "^7.18.3",
     "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "csv-parser": "^3.0.0"
   }
 }
