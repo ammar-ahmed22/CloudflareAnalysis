@@ -71,8 +71,10 @@ class CSVReader {
 (async () => {
     const jun6 = await CSVReader.read('./testing/jun6/jun6data.csv')
     console.log(jun6)
-    CSVReader.write('./testing/testing.csv', jun6)
+    //CSVReader.write('./testing/testing.csv', jun6)
 })()
+
+export default CSVReader
 
 
 
