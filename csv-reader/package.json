@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node ./build/index.js",
     "build": "babel src -d ./build --copy-files",
-    "dev": "nodemon --exec babel-node ./src/index.js"
+    "dev": "nodemon --exec babel-node ./src/index.js",
+    "test": "nodemon --exec babel-node ./src/index.test.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
