@@ -1,27 +1,36 @@
 import csv from "csv-parser"
 import fs from "fs"
 import path from "path"
+import { Readable } from "stream";
 
 
 class CSVReader {
 
-    static readStreamAsync = (stream) => {
-        return new Promise((resolve, reject) => {
-            const data = []
+    
 
-            fs.createReadStream()
-
-        })
-    }
-
-    static read = async (csvPath, options={ stringify: false }) => {
-        const { stringify } = options;
+    static read = async (pathOrString, options={ stringify: false, fromString: false }) => {
+        const { stringify, fromString } = options;
         //const results = []
         return new Promise((resolve, reject) => {
 
             const data = []
+            if (fromString){
+                const stream = new Readable()
+                stream.push(pathOrString)
+                stream.push(null)
 
-            fs.createReadStream(path.join(__dirname, csvPath))
+                stream.pipe(csv())
+                    .on('data', chunk => data.push(chunk))
+                    .on('end', () => {
+                        if (data){
+                            resolve(stringify ? JSON.stringify(data) : data)
+                        }else{
+                            reject(Error("No data found"))
+                        }
+                        
+                    })
+            }else{
+                fs.createReadStream(path.join(__dirname, pathOrString))
                 .pipe(csv())
                 .on('data', chunk => data.push(chunk))
                 .on('end', () => {
@@ -31,6 +40,8 @@ class CSVReader {
                         reject(Error("No data found"))
                     }
                 })
+            }
+            
         })
 
         
@@ -70,7 +81,9 @@ class CSVReader {
 // Testing
 (async () => {
     const jun6 = await CSVReader.read('./testing/jun6/jun6data.csv')
-    console.log(jun6)
+    //console.log(jun6)
+
+    //const stringTest = await CSVReader.read(``, { fromString: true, stringify: false })
     //CSVReader.write('./testing/testing.csv', jun6)
 })()
 

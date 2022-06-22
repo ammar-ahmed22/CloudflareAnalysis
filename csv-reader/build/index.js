@@ -23,43 +23,55 @@ var _fs = _interopRequireDefault(require("fs"));
 
 var _path = _interopRequireDefault(require("path"));
 
+var _stream = require("stream");
+
 var CSVReader = /*#__PURE__*/(0, _createClass2["default"])(function CSVReader() {
   (0, _classCallCheck2["default"])(this, CSVReader);
 }); // Testing
 
-(0, _defineProperty2["default"])(CSVReader, "readStreamAsync", function (stream) {
-  return new Promise(function (resolve, reject) {
-    var data = [];
-
-    _fs["default"].createReadStream();
-  });
-});
 (0, _defineProperty2["default"])(CSVReader, "read", /*#__PURE__*/function () {
-  var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(csvPath) {
+  var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(pathOrString) {
     var options,
         stringify,
+        fromString,
         _args2 = arguments;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {
-              stringify: false
+              stringify: false,
+              fromString: false
             };
-            stringify = options.stringify; //const results = []
+            stringify = options.stringify, fromString = options.fromString; //const results = []
 
             return _context2.abrupt("return", new Promise(function (resolve, reject) {
               var data = [];
 
-              _fs["default"].createReadStream(_path["default"].join(__dirname, csvPath)).pipe((0, _csvParser["default"])()).on('data', function (chunk) {
-                return data.push(chunk);
-              }).on('end', function () {
-                if (data) {
-                  resolve(stringify ? JSON.stringify(data) : data);
-                } else {
-                  reject(Error("No data found"));
-                }
-              });
+              if (fromString) {
+                var stream = new _stream.Readable();
+                stream.push(pathOrString);
+                stream.push(null);
+                stream.pipe((0, _csvParser["default"])()).on('data', function (chunk) {
+                  return data.push(chunk);
+                }).on('end', function () {
+                  if (data) {
+                    resolve(stringify ? JSON.stringify(data) : data);
+                  } else {
+                    reject(Error("No data found"));
+                  }
+                });
+              } else {
+                _fs["default"].createReadStream(_path["default"].join(__dirname, pathOrString)).pipe((0, _csvParser["default"])()).on('data', function (chunk) {
+                  return data.push(chunk);
+                }).on('end', function () {
+                  if (data) {
+                    resolve(stringify ? JSON.stringify(data) : data);
+                  } else {
+                    reject(Error("No data found"));
+                  }
+                });
+              }
             }));
 
           case 3:
@@ -112,9 +124,8 @@ var CSVReader = /*#__PURE__*/(0, _createClass2["default"])(function CSVReader() 
 
         case 2:
           jun6 = _context.sent;
-          console.log(jun6); //CSVReader.write('./testing/testing.csv', jun6)
 
-        case 4:
+        case 3:
         case "end":
           return _context.stop();
       }

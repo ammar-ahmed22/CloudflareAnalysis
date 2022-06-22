@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider, extendTheme, ColorModeProvider } from "@chakra-ui/react"
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client"
 
 
@@ -15,11 +15,19 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+const config = {
+  initialColorMode: "system",
+  useSystemColorMode: true
+}
+
+const theme = extendTheme({ config })
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <ColorModeProvider initialColorMode={theme.config.initialColorMode}/>
         <App />
       </ChakraProvider>
     </ApolloProvider>
