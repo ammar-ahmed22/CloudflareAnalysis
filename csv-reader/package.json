@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./build/index.js",
-    "build": "babel src -d ./build --copy-files",
+    "build": "rm -rf ./build && babel src -d ./build --copy-files",
     "dev": "nodemon --exec babel-node ./src/index.js",
     "test": "nodemon --exec babel-node ./src/index.test.js"
   },
@@ -22,5 +22,8 @@
   },
   "dependencies": {
     "csv-parser": "^3.0.0"
+  },
+  "exports":{
+    "./react": "./build/react/index.js"
   }
 }
